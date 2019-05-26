@@ -18,7 +18,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(async (req, res, next) => {
   req.context = {
     models,
-    me: await models.User.findByLogin('rwieruch'),
+    // me: await models.User.findByLogin('rwieruch'),
   };
   next();
 });
@@ -28,8 +28,6 @@ app.use(async (req, res, next) => {
 app.use('/zabavni-park', routes.zabavniPark);
 app.use('/atrakcija', routes.atrakcija);
 app.use('/session', routes.session);
-app.use('/users', routes.user);
-app.use('/messages', routes.message);
 
 // Start
 
@@ -38,7 +36,6 @@ const eraseDatabaseOnSync = true;
 sequelize.sync({ force: eraseDatabaseOnSync }).then(async () => {
   if (eraseDatabaseOnSync) {
     createFunParkWithAttractions();
-    createUsersWithMessages();
   }
 
   app.listen(process.env.PORT, () =>
@@ -81,35 +78,3 @@ const createFunParkWithAttractions = async () => {
   return true;
 };
 
-const createUsersWithMessages = async () => {
-  await models.User.create(
-    {
-      username: 'rwieruch',
-      messages: [
-        {
-          text: 'Published the Road to learn React',
-        },
-      ],
-    },
-    {
-      include: [models.Message],
-    },
-  );
-
-  await models.User.create(
-    {
-      username: 'ddavids',
-      messages: [
-        {
-          text: 'Happy to release ...',
-        },
-        {
-          text: 'Published a complete ...',
-        },
-      ],
-    },
-    {
-      include: [models.Message],
-    },
-  );
-};

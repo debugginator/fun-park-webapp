@@ -1,21 +1,20 @@
 import React, { Component } from 'react';
-import './App.css';
 
 class App extends Component {
-  state = {users: []};
+  state = {attractions: []};
 
   componentDidMount() {
-    fetch('/users')
+    fetch('/atrakcija')
       .then(res => res.json())
-      .then(users => this.setState({ users }));
+      .then(attractions => this.setState({ attractions }));
   }
 
   render() {
     return (
       <div className="App">
-        <h1>Users</h1>
-        {this.state.users.map(user =>
-          <div key={user.id}>{user.username}</div>
+        <h1>Attractions</h1>
+        {this.state.attractions.map(attraction =>
+          <div key={attraction.id}>{attraction.naziv}</div>
         )}
       </div>
     );
