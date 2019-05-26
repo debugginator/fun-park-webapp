@@ -3,6 +3,7 @@ const atrakcija = (sequelize, DataTypes) => {
     naziv: DataTypes.STRING,
     opis: DataTypes.STRING,
     ocjenaTezine: DataTypes.STRING,
+    avatarURL: DataTypes.STRING,
   });
 
   Atrakcija.associate = models => {
