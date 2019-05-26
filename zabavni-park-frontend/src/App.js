@@ -1,29 +1,45 @@
 import React, { useEffect } from 'react';
 
 import Avatar from '@material-ui/core/Avatar';
-import MasterDetail from "./components/MasterDetail";
 import ListItem from "@material-ui/core/ListItem";
 import Collapse from "@material-ui/core/Collapse";
 import List from "@material-ui/core/List";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListSubheader from "@material-ui/core/ListSubheader";
+import Divider from '@material-ui/core/Divider';
 import Container from '@material-ui/core/Container';
-
+import Typography from '@material-ui/core/Typography';
+import { ShortText, StarBorder } from '@material-ui/icons';
+import ExpandLess from '@material-ui/icons/ExpandLess';
+import ExpandMore from '@material-ui/icons/ExpandMore';
 import { makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
   root: {
-    width: '100%',
+    width: "50%",
     maxWidth: 360,
-    // backgroundColor: theme.palette.grey.A100,
+    // backgroundColor: theme.palette.background.paper,
+  },
+  center: {
+    width: "800px",
+    display: "block",
+    marginLeft: "auto",
+    marginRight: "auto",
+    backgroundColor: theme.palette.background.paper,
+    // color: theme.palette.common.white
   },
   container: {
-    backgroundColor: theme.palette.background.paper,
-    justifyContent: 'center'
+    margin: "auto",
+    marginTop: 100,
+    // backgroundColor: theme.palette.background.paper,
   },
   nested: {
     paddingLeft: theme.spacing(4),
+  },
+  title: {
+    // color: theme.palette.common.white,
+    margin: theme.spacing(4, 0, 2),
   },
   avatar: {
     margin: 10,
@@ -36,7 +52,7 @@ const useStyles = makeStyles(theme => ({
 const App = () => {
 
   const classes = useStyles();
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = React.useState(false);
   const [attractions, setAttractions] = React.useState([]);
 
   useEffect(() => {
@@ -45,38 +61,59 @@ const App = () => {
       .then(setAttractions);
   }, []);
 
-  function handleClick() {
-    setOpen(!open);
+  function handleClick(id) {
+    setOpen({ [id]: !open[id] });
   }
 
   return (
     <Container className={classes.container}>
-      <h1>Attractions</h1>
       <List
         component="nav"
-        subheader={<ListSubheader component="div">Attractions</ListSubheader>}
-        className={classes.root}
+        subheader={<ListSubheader className={classes.title} component="div">Attractions</ListSubheader>}
+        className={classes.center}
       >
         {attractions.map(attraction =>
-          <Collapse key={attraction.id} in={open} timeout="auto" unmountOnExit>
+          <div key={attraction.id}>
+            <Divider/>
             <List component="div" disablePadding>
-              <ListItem button className={classes.nested}>
+              <ListItem button onClick={() => handleClick(attraction.id)}>
                 <ListItemIcon>
                   <Avatar alt="Attraction avatar"
                           src={attraction.avatarURL}
                           className={classes.avatar}/>
                 </ListItemIcon>
                 <ListItemText primary={attraction.naziv}/>
+                {open[attraction.id] ? <ExpandLess/> : <ExpandMore/>}
               </ListItem>
             </List>
-          </Collapse>)
-        }
+            <Collapse in={open[attraction.id]}
+                      style={{ backgroundColor: "antiquewhite" }}
+                      timeout="auto"
+                      unmountOnExit>
+              <ListItem button className={classes.nested}>
+                <ListItemIcon>
+                  <ShortText/>
+                </ListItemIcon>
+                <Typography variant="subtitle2">
+                  {attraction.opis}
+                </Typography>
+              </ListItem>
+              <ListItem button className={classes.nested}>
+                <ListItemIcon>
+                  <StarBorder/>
+                </ListItemIcon>
+                <Typography variant="subtitle2">
+                  {attraction.ocjenaTezine}
+                </Typography>
+              </ListItem>
+            </Collapse>
+          </div>
+        )}
 
       </List>
-      <MasterDetail/>
     </Container>
   );
 
-}
+};
 
 export default App;

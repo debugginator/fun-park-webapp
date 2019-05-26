@@ -50,7 +50,7 @@ const createFunParkWithAttractions = async () => {
       atrakcijas: [
         {
           naziv: "BeerPong",
-          opis: "Beer Pong je relativno jednostavna igra koja ne zahtijeva puno",
+          opis: "Beer Pong je relativno jednostavna igra koja ne zahtijeva puno znanja, ali zahtjeva preciznost.",
           ocjenaTezine: 3,
           avatarURL: "https://cdn.prezzybox.com/Images/39755.jpg"
         },
