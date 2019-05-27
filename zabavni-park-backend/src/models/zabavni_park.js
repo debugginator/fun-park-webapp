@@ -4,6 +4,7 @@ const zabavniPark = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       unique: true,
     },
+    pozadinskaSlika: DataTypes.STRING
   });
 
   ZabavniPark.associate = models => {

@@ -1,64 +1,77 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
-
-function TabContainer(props) {
-  return (
-    <Typography component="div" style={{ padding: 8 * 3 }}>
-      {props.children}
-    </Typography>
-  );
-}
-
-TabContainer.propTypes = {
-  children: PropTypes.node.isRequired,
-};
-
-function LinkTab(props) {
-  return (
-    <Tab
-      component="a"
-      onClick={event => {
-        event.preventDefault();
-      }}
-      {...props}
-    />
-  );
-}
+import { ArrowDropDownCircle } from '@material-ui/icons';
+import IconButton from '@material-ui/core/IconButton';
+import Toolbar from '@material-ui/core/Toolbar';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
 
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
     backgroundColor: theme.palette.background.paper,
   },
+  icon: {
+    fontSize: "3rem",
+    alignSelf: "flex-end",
+  },
+  appBar: {
+    zIndex: theme.zIndex.drawer + 1,
+  },
+  menuButton: {
+    marginRight: theme.spacing(2),
+  },
 }));
 
-function NavTabs() {
-  const classes = useStyles();
-  const [value, setValue] = React.useState(0);
 
-  function handleChange(event, newValue) {
-    setValue(newValue);
+function Header({parks}) {
+  const classes = useStyles();
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  function handleMenuClick(event) {
+    setAnchorEl(event.currentTarget);
+  }
+
+  function handleMenuClose() {
+    setAnchorEl(null);
   }
 
   return (
     <div className={classes.root}>
-      <AppBar position="static">
-        <Tabs variant="fullWidth" value={value} onChange={handleChange}>
-          <LinkTab label="Page One" href="/drafts" />
-          <LinkTab label="Page Two" href="/trash" />
-          <LinkTab label="Page Three" href="/spam" />
-        </Tabs>
+      <AppBar position="fixed"
+              className={classes.appBar}
+      >
+        <Toolbar>
+          <IconButton href="#"
+                      onClick={handleMenuClick}
+                      edge="start"
+                      className={classes.menuButton}
+                      color="inherit"
+                      aria-label="Menu">
+            <ArrowDropDownCircle className={classes.icon}/>
+          </IconButton>
+          <Menu id="simple-menu" anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleMenuClose}>
+            {parks.map(park =>
+              <MenuItem key={park.id}
+                        onClick={handleMenuClose}
+                        button="primary"
+                        component="div"
+              >
+                {park.naziv}
+              </MenuItem>)}
+          </Menu>
+
+
+          <Typography variant="h4">
+            {parks[0].naziv}
+          </Typography>
+        </Toolbar>
       </AppBar>
-      {value === 0 && <TabContainer>Page One</TabContainer>}
-      {value === 1 && <TabContainer>Page Two</TabContainer>}
-      {value === 2 && <TabContainer>Page Three</TabContainer>}
     </div>
   );
 }
 
-export default NavTabs;
+export default Header;

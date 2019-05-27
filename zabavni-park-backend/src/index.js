@@ -47,6 +47,7 @@ const createFunParkWithAttractions = async () => {
   await models.ZabavniPark.create(
     {
       naziv: 'PivaLand',
+      pozadinskaSlika: "https://cdn.beeradvocate.com/assets/uploads/2015/10/56Unfiltered-820x564.jpg",
       atrakcijas: [
         {
           naziv: "BeerPong",

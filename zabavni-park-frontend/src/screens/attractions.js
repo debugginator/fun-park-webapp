@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 import Avatar from '@material-ui/core/Avatar';
 import ListItem from "@material-ui/core/ListItem";
@@ -7,13 +8,15 @@ import List from "@material-ui/core/List";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListSubheader from "@material-ui/core/ListSubheader";
+import IconButton from '@material-ui/core/IconButton';
 import Divider from '@material-ui/core/Divider';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
-import { ShortText, StarBorder } from '@material-ui/icons';
+import { Add, Edit, Pageview, ShortText, StarBorder } from '@material-ui/icons';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import { makeStyles } from "@material-ui/core";
+
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -31,7 +34,6 @@ const useStyles = makeStyles(theme => ({
   },
   container: {
     margin: "auto",
-    marginTop: 100,
     // backgroundColor: theme.palette.background.paper,
   },
   nested: {
@@ -49,8 +51,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 
-const Attractions = () => {
-
+const Attractions = (props) => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const [attractions, setAttractions] = React.useState([]);
@@ -69,7 +70,17 @@ const Attractions = () => {
     <Container className={classes.container}>
       <List
         component="nav"
-        subheader={<ListSubheader className={classes.title} component="div">Attractions</ListSubheader>}
+        subheader={
+          <ListSubheader className={classes.title}
+                         component="div"
+          >
+            Attractions
+
+            <IconButton href="#">
+              <Add/>
+            </IconButton>
+          </ListSubheader>
+        }
         className={classes.center}
       >
         {attractions.map(attraction =>
@@ -90,7 +101,7 @@ const Attractions = () => {
                       style={{ backgroundColor: "antiquewhite" }}
                       timeout="auto"
                       unmountOnExit>
-              <ListItem button className={classes.nested}>
+              <ListItem className={classes.nested}>
                 <ListItemIcon>
                   <ShortText/>
                 </ListItemIcon>
@@ -98,7 +109,7 @@ const Attractions = () => {
                   {attraction.opis}
                 </Typography>
               </ListItem>
-              <ListItem button className={classes.nested}>
+              <ListItem className={classes.nested}>
                 <ListItemIcon>
                   <StarBorder/>
                 </ListItemIcon>
@@ -106,10 +117,29 @@ const Attractions = () => {
                   {attraction.ocjenaTezine}
                 </Typography>
               </ListItem>
+              <Link to={"attraction/" + attraction.id}>
+                <ListItem button
+                          className={classes.nested}
+                >
+                  <ListItemIcon>
+                    <Pageview/>
+                  </ListItemIcon>
+                  <Typography variant="subtitle2">
+                    Pregled atrakcije
+                  </Typography>
+                </ListItem>
+              </Link>
+              <ListItem button className={classes.nested}>
+                <ListItemIcon>
+                  <Edit/>
+                </ListItemIcon>
+                <Typography variant="subtitle2">
+                  Ažuriranje atrakcije
+                </Typography>
+              </ListItem>
             </Collapse>
           </div>
         )}
-
       </List>
     </Container>
   );
