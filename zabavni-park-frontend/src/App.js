@@ -6,13 +6,25 @@ import Container from '@material-ui/core/Container';
 import Attractions from './screens/attractions';
 import Attraction from './screens/attraction';
 import Home from "./screens/home";
+import AttractionEdit from "./screens/attractionEdit";
 
 import Header from './components/Header';
 import Drawer from "./components/Drawer";
+import makeStyles from "@material-ui/core/styles/makeStyles";
 
+
+const useStyles = makeStyles(theme => ({
+  content: {
+    flexGrow: 1,
+    padding: theme.spacing(3),
+    marginLeft: 240,
+    maxWidth: "unset",
+  },
+}));
 
 const App = () => {
   const [parks, setParks] = React.useState([{ id: 0, naziv: "" }]);
+  const classes = useStyles();
 
   useEffect(() => {
     fetch("/zabavni-park")
@@ -27,11 +39,12 @@ const App = () => {
         <Drawer/>
         <div style={{ marginTop: 150 }}/>
 
-        <Container style={{ margin: "auto" }}>
+        <Container className={classes.content}>
           <Route exact path="/" component={() => <Home park={parks[0]}/>}/>
+          <Route exact path="/about-park" component={() => <Home park={parks[0]}/>}/>
           <Route exact path="/attractions" component={Attractions}/>
-          <Route path="/attraction/:id" component={Attraction}/>
-          {/*<Route path="/topics" component={Topics} />*/}
+          <Route exact path="/attraction/:id" component={Attraction}/>
+          <Route exact path="/attraction/:id/edit" component={AttractionEdit}/>
         </Container>
       </div>
     </Router>

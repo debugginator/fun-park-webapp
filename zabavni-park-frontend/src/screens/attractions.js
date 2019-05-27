@@ -67,7 +67,6 @@ const Attractions = (props) => {
   }
 
   return (
-    <Container className={classes.container}>
       <List
         component="nav"
         subheader={
@@ -129,19 +128,20 @@ const Attractions = (props) => {
                   </Typography>
                 </ListItem>
               </Link>
-              <ListItem button className={classes.nested}>
-                <ListItemIcon>
-                  <Edit/>
-                </ListItemIcon>
-                <Typography variant="subtitle2">
-                  Ažuriranje atrakcije
-                </Typography>
-              </ListItem>
+              <Link to={`attraction/${attraction.id}/edit`}>
+                <ListItem button className={classes.nested}>
+                  <ListItemIcon>
+                    <Edit/>
+                  </ListItemIcon>
+                  <Typography variant="subtitle2">
+                    Ažuriranje atrakcije
+                  </Typography>
+                </ListItem>
+              </Link>
             </Collapse>
           </div>
         )}
       </List>
-    </Container>
   );
 
 };

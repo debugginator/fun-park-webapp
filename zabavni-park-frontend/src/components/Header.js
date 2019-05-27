@@ -8,6 +8,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Toolbar from '@material-ui/core/Toolbar';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -27,7 +28,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 
-function Header({parks}) {
+function Header({ parks }) {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -55,13 +56,16 @@ function Header({parks}) {
           </IconButton>
           <Menu id="simple-menu" anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleMenuClose}>
             {parks.map(park =>
-              <MenuItem key={park.id}
-                        onClick={handleMenuClose}
-                        button="primary"
-                        component="div"
-              >
-                {park.naziv}
-              </MenuItem>)}
+              <Link to="/" key={park.id}>
+                <MenuItem
+                  onClick={handleMenuClose}
+                  button="primary"
+                  component="div"
+                >
+                  {park.naziv}
+                </MenuItem>
+              </Link>
+            )}
           </Menu>
 
 

@@ -48,6 +48,7 @@ const createFunParkWithAttractions = async () => {
     {
       naziv: 'PivaLand',
       pozadinskaSlika: "https://cdn.beeradvocate.com/assets/uploads/2015/10/56Unfiltered-820x564.jpg",
+      opis: "Ovaj zabavni park je napravljen specifično za sve ljubitelje pive i one koji se tako osijećaju",
       atrakcijas: [
         {
           naziv: "BeerPong",
