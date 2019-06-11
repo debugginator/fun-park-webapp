@@ -8,19 +8,24 @@ router.get('/', async (req, res) => {
 });
 
 router.get('/:id', async (req, res) => {
-  const park = await req.context.models.Atrakcija.findByPk(
+  const atrakcija = await req.context.models.Atrakcija.findByPk(
     req.params.id,
   );
-  return res.send(park);
+  return res.send(atrakcija);
 });
 
-router.post('/', async (req, res) => {
-  const park = await req.context.models.Atrakcija.create({
-    text: req.body.text,
-    userId: req.context.me.id,
+router.post('/edit/:id', async (req, res) => {
+  const atrakcija = await req.context.models.Atrakcija.update(req.body, {
+    where: { id: req.params.id }
   });
 
-  return res.send(park);
+  return res.send(atrakcija);
+});
+
+router.post('/create', async (req, res) => {
+  const atrakcija = await req.context.models.Atrakcija.create(req.body);
+
+  return res.send(atrakcija);
 });
 
 router.delete('/:id', async (req, res) => {

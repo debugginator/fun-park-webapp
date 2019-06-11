@@ -8,6 +8,8 @@ const atrakcija = (sequelize, DataTypes) => {
 
   Atrakcija.associate = models => {
     Atrakcija.belongsTo(models.ZabavniPark);
+    Atrakcija.hasOne(models.Stand);
+    Atrakcija.hasMany(models.Djelatnik);
   };
 
   return Atrakcija;

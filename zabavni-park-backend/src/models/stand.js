@@ -1,5 +1,6 @@
 const stand = (sequelize, DataTypes) => {
   const Stand = sequelize.define('stand', {
+    naziv: DataTypes.STRING,
     cjenik: DataTypes.STRING,
   });
 

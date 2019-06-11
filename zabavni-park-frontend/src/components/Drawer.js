@@ -55,7 +55,7 @@ function ClippedDrawer() {
           </ListItem>
         </Link>
 
-        <Link to={"stands"}>
+        <Link to={"/stands"}>
           <ListItem button>
             <ListItemIcon>
               <Stars/>
@@ -64,7 +64,7 @@ function ClippedDrawer() {
           </ListItem>
         </Link>
 
-        <Link to={"about-park"}>
+        <Link to={"/about-park"}>
           <ListItem button>
             <ListItemIcon>
               <Stars/>

@@ -1,15 +1,15 @@
 const osoba = (sequelize, DataTypes) => {
   const Osoba = sequelize.define('osoba', {
-    Ime: DataTypes.STRING,
-    Prezime: DataTypes.STRING
+    ime: DataTypes.STRING,
+    prezime: DataTypes.STRING
   });
 
   Osoba.associate = models => {
-    Osoba.hasMany(models.Djelatnik);
+    Osoba.hasOne(models.Djelatnik);
   };
 
   Osoba.associate = models => {
-    Osoba.hasMany(models.Posjetitelj);
+    Osoba.hasOne(models.Posjetitelj);
   };
 
   return Osoba;

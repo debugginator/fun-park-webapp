@@ -6,9 +6,13 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
+import DeleteIcon from '@material-ui/icons/Delete';
+import IconButton from '@material-ui/core/IconButton';
+
 
 const useStyles = makeStyles({
   card: {
+    margin: "auto",
     width: 600,
   },
   media: {
@@ -30,6 +34,16 @@ function Attraction(props) {
       .then(res => res.json())
       .then(setAttraction);
   }, []);
+
+  const handleDelete = async () => {
+    const rawResponse = await fetch('/atrakcija/' + props.match.params.id, {
+      method: 'DELETE',
+    });
+    const status = await rawResponse.json();
+
+    console.log(status);
+    window.location.replace("/");
+  };
 
   return (
     <Card className={classes.card}>
@@ -53,6 +67,10 @@ function Attraction(props) {
           Ocjena težine: {attraction.ocjenaTezine}
         </Typography>
       </CardActions>
+
+      <IconButton onClick={handleDelete}>
+        <DeleteIcon/>
+      </IconButton>
     </Card>
   );
 }

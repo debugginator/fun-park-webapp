@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import AttractionForm from "../components/forms/AttractionForm";
 
 
-function AttractionEdit(props) {
+function AttractionCreate() {
   const [attraction, setAttraction] = useState({
     naziv: "",
     opis: "",
@@ -11,18 +11,12 @@ function AttractionEdit(props) {
   });
 
 
-  useEffect(() => {
-    fetch("/atrakcija/" + props.match.params.id)
-      .then(res => res.json())
-      .then(setAttraction);
-  }, []);
-
   const handleChange = name => event => {
     setAttraction({ ...attraction, [name]: event.target.value });
   };
 
   const submit = async () => {
-    const rawResponse = await fetch('/atrakcija/edit/' + props.match.params.id, {
+    const rawResponse = await fetch('/atrakcija/create/', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -38,4 +32,4 @@ function AttractionEdit(props) {
   return (<AttractionForm attraction={attraction} handleChange={handleChange} submit={submit}/>);
 }
 
-export default AttractionEdit;
+export default AttractionCreate;
