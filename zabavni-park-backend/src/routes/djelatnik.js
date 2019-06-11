@@ -7,6 +7,24 @@ router.get('/', async (req, res) => {
   return res.send(djelatnici);
 });
 
+router.get('/byAttr/:id', async (req, res) => {
+  const djelatnici = await req.context.models.Djelatnik.findAll();
+  const osobe = await req.context.models.Osoba.findAll();
+  const toSend = [];
+
+  djelatnici
+    .filter(d => d.atrakcijaId == req.params.id)
+    .forEach(d => {
+      let osoba = osobe.filter(o => o.id === d.osobaId)[0];
+      let a={};
+      a["ime"] = osoba.ime;
+      a["prezime"] = osoba.prezime;
+      toSend.push({osoba: a, djelatnik: d});
+    });
+
+  return res.send(toSend);
+});
+
 router.get('/:id', async (req, res) => {
   const djelatnik = await req.context.models.Djelatnik.findByPk(
     req.params.id,

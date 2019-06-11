@@ -106,7 +106,7 @@ const createDatabase = async () => {
           },
           djelatniks: [
             {
-              brRadneKnjizice: "51345134513",
+              brRadneKnjizice: "5134513",
               brTekucegRacuna: "32123543",
               osoba: {
                 ime: "Ivan",
@@ -135,7 +135,7 @@ const createDatabase = async () => {
           djelatniks: [
             {
               brRadneKnjizice: "23272327",
-              brTekucegRacuna: "23423452345234",
+              brTekucegRacuna: "234234522",
               osoba: {
                 ime: "Blaž",
                 prezime: "Bagić"
@@ -162,7 +162,7 @@ const createDatabase = async () => {
           },
           djelatniks: [
             {
-              brRadneKnjizice: "3624652423423",
+              brRadneKnjizice: "36246423",
               brTekucegRacuna: "456243",
               osoba: {
                 ime: "Tin",

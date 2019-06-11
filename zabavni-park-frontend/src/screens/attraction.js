@@ -28,11 +28,18 @@ function Attraction(props) {
     avatarUrl: "",
     ocjenaTezine: ""
   });
+  const [workers, setWorkers] = useState([]);
 
   useEffect(() => {
     fetch("/atrakcija/" + props.match.params.id)
       .then(res => res.json())
       .then(setAttraction);
+  }, []);
+
+  useEffect(() => {
+    fetch("/djelatnik/byAttr/" + props.match.params.id)
+      .then(res => res.json())
+      .then(setWorkers);
   }, []);
 
   const handleDelete = async () => {
@@ -65,6 +72,19 @@ function Attraction(props) {
       <CardActions>
         <Typography variant="button" component="p">
           Ocjena težine: {attraction.ocjenaTezine}
+        </Typography>
+      </CardActions>
+
+      <CardActions>
+        <Typography variant="button" component="p">
+          Djelatnici:
+          {
+            workers.map(worker =>
+              <Typography key={worker.djelatnik.id} variant="body2" color="textSecondary" component="p">
+                {worker.osoba.ime} {worker.osoba.prezime} ({worker.djelatnik.brTekucegRacuna})
+              </Typography>
+            )
+          }
         </Typography>
       </CardActions>
 
