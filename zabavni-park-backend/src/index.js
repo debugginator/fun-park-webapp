@@ -29,6 +29,7 @@ app.use('/zabavni-park', routes.zabavniPark);
 app.use('/atrakcija', routes.atrakcija);
 app.use('/stand', routes.stand);
 app.use('/djelatnik', routes.djelatnik);
+app.use('/reset', routes.reset);
 
 // Start
 
@@ -197,3 +198,4 @@ const createDatabase = async () => {
   return true;
 };
 
+export default createDatabase;

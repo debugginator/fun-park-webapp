@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon --exec babel-node src/index.js",
-    "test": "echo \"No test specified\" && exit 0"
+    "test": "mocha ./src/tests"
   },
   "keywords": [],
   "author": "",
@@ -14,9 +14,12 @@
     "@babel/core": "^7.2.2",
     "@babel/node": "^7.2.2",
     "@babel/preset-env": "^7.2.3",
+    "chai": "^4.2.0",
+    "mocha": "^6.1.4",
     "nodemon": "^1.18.9"
   },
   "dependencies": {
+    "assert": "^2.0.0",
     "body-parser": "^1.18.3",
     "cors": "^2.8.5",
     "dotenv": "^6.2.0",

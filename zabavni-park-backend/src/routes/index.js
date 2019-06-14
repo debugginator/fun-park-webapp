@@ -4,6 +4,7 @@ import zabavniPark from './zabavni_park';
 import atrakcija from './atrakcija';
 import stand from './stand';
 import djelatnik from './djelatnik';
+import reset from './reset';
 
 export default {
   zabavniPark,
@@ -11,5 +12,6 @@ export default {
   stand,
   user,
   message,
-  djelatnik
+  djelatnik,
+  reset
 };

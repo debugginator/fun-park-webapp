@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import AttractionForm from "../components/forms/AttractionForm";
+import { createAttraction } from "../DAL/attractions";
+import { validateAttraction } from "../validators/validateAttraction";
 
 
 function AttractionCreate() {
@@ -16,17 +18,17 @@ function AttractionCreate() {
   };
 
   const submit = async () => {
-    const rawResponse = await fetch('/atrakcija/create/', {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(attraction)
-    });
-    const content = await rawResponse.json();
+    let validateResult = validateAttraction(attraction);
+    if (typeof validateResult === "string") {
+      alert(validateResult);
+      return;
+    }
 
-    console.log(content);
+    const content = await createAttraction(attraction);
+
+    if (content) {
+      document.location.pathname="attractions"
+    }
   };
 
   return (<AttractionForm attraction={attraction} handleChange={handleChange} submit={submit}/>);

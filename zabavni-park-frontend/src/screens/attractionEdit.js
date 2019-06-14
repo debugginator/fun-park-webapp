@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import AttractionForm from "../components/forms/AttractionForm";
+import { validateAttraction } from "../validators/validateAttraction";
+import { updateAttraction } from "../DAL/attractions";
 
 
 function AttractionEdit(props) {
@@ -22,17 +24,16 @@ function AttractionEdit(props) {
   };
 
   const submit = async () => {
-    const rawResponse = await fetch('/atrakcija/edit/' + props.match.params.id, {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(attraction)
-    });
-    const content = await rawResponse.json();
+    let validateResult = validateAttraction(attraction);
+    if (typeof validateResult === "string") {
+      alert(validateResult);
+      return;
+    }
+    const content = await updateAttraction(props.match.params.id, attraction);
 
-    console.log(content);
+    if (content) {
+      document.location.pathname="attractions"
+    }
   };
 
   return (<AttractionForm attraction={attraction} handleChange={handleChange} submit={submit}/>);

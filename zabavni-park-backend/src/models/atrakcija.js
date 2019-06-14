@@ -2,7 +2,7 @@ const atrakcija = (sequelize, DataTypes) => {
   const Atrakcija = sequelize.define('atrakcija', {
     naziv: DataTypes.STRING,
     opis: DataTypes.STRING,
-    ocjenaTezine: DataTypes.STRING,
+    ocjenaTezine: DataTypes.INTEGER,
     avatarURL: DataTypes.STRING,
   });
 
